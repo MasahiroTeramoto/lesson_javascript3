@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>TODOリスト</title>
+    <link rel="stylesheat" href="style.css">
+</head>
+
+<body>
+    <div>
+        <h1>ToDoリスト</h1>
+        <input type="radio" name="progress" value="all" checked="checked"> すべて
+        <input type="radio" name="progress" value="working">作業中
+        <input type="radio" name="progress" value="finish">完了
+        <table>
+            <thead>
+                <th>
+                    ID
+                </th>
+                <th>
+                    コメント
+                </th>
+                <th>
+                    状態
+                </th>
+            </thead>
+            <tbody id="task-list">
+            </tbody>
+        </table>
+        <br>
+        <h1>新規タスクの追加</h1>
+        <input type="comment" value="" id="comment"></input>
+        <button value="addTask" onclick="clickBtn()">追加</button>
+    </div>
+</body>
+
+</html>
+
+<script src="addTask.js"></script>
