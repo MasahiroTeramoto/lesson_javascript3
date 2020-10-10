@@ -1,5 +1,5 @@
 // call function
-const createTaskTalbleRow = function(taskList) {
+const displayTaskList = function(taskList) {
     const elem = document.getElementById('task-list');
     let newTable;
 
@@ -38,5 +38,5 @@ const taskList = [];
 
 function clickBtn() {
     addTaskList(taskList);
-    createTaskTalbleRow(taskList);
+    displayTaskList(taskList);
 }
