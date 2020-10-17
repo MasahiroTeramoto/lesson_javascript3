@@ -30,10 +30,7 @@ const displayTaskList = function(taskList) {
 
         elem.appendChild(tableRow);
 
-        deleteButton.addEventListener('click', function() {
-            taskList.splice(index, 1);
-            displayTaskList(taskList);
-        }, false);
+        deleteButton.addEventListener('click', { taskList, index, handleEvent: deleteTask }, false)
     });
 };
 
@@ -46,6 +43,12 @@ const addTaskList = function(taskList) {
     comment.value = '';
     taskList.push(task);
 };
+
+// event logic
+const deleteTask = function(e) {
+    this.taskList.splice(this.index, 1);
+    displayTaskList(this.taskList);
+}
 
 // main Logic
 const taskList = [];
