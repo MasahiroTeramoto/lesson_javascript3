@@ -8,7 +8,7 @@ const displayTaskList = function(taskList) {
     }
 
     // Display task list
-    taskList.forEach(function(task) {
+    taskList.forEach(function(task, index) {
         const tableRow = document.createElement('tr');
         const idData = document.createElement('td');
         const commentData = document.createElement('td');
@@ -17,7 +17,7 @@ const displayTaskList = function(taskList) {
         const deleteButton = document.createElement('button');
 
         deleteButton.textContent = '削除';
-        idData.textContent = task['id'];
+        idData.textContent = index;
         commentData.textContent = task['comment'];
         progressButton.textContent = task['status'];
 
@@ -29,6 +29,8 @@ const displayTaskList = function(taskList) {
         tableRow.appendChild(statusData);
 
         elem.appendChild(tableRow);
+
+        deleteButton.addEventListener('click', { taskList, index, handleEvent: deleteTask }, false)
     });
 };
 
@@ -41,6 +43,12 @@ const addTaskList = function(taskList) {
     comment.value = '';
     taskList.push(task);
 };
+
+// event logic
+const deleteTask = function(e) {
+    this.taskList.splice(this.index, 1);
+    displayTaskList(this.taskList);
+}
 
 // main Logic
 const taskList = [];
