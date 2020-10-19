@@ -7,8 +7,11 @@ const displayTaskList = function(taskList) {
         elem.removeChild(elem.lastChild);
     }
 
+    // filter taskList
+    filteredTaskList = getFilteredTaskList(taskList);
+
     // Display task list
-    taskList.forEach(function(task, index) {
+    filteredTaskList.forEach(function(task, index) {
         const tableRow = document.createElement('tr');
         const idData = document.createElement('td');
         const commentData = document.createElement('td');
@@ -51,6 +54,39 @@ const addTaskList = function(taskList) {
     taskList.push(task);
 };
 
+const filterTaskList = function(taskList, status) {
+    let filteredTaskList = [];
+
+    taskList.forEach(function(task) {
+        if (task['status'] === status) {
+            filteredTaskList.push(task);
+        }
+    });
+
+    return filteredTaskList;
+};
+
+const getCheckedFilterStatus = function() {
+    let filterStatus;
+    let statusList = document.querySelectorAll('input[type=radio]');
+
+    statusList.forEach(function(status) {
+        if (status.checked) filterStatus = status.value;
+    });
+
+    return filterStatus;
+};
+
+const getFilteredTaskList = function(taskList) {
+    let status = getCheckedFilterStatus();
+
+    if (status === 'すべて') {
+        return taskList;
+    } else {
+        return filterTaskList(taskList, status);
+    }
+};
+
 // event logic
 const deleteTask = function(e) {
     this.taskList.splice(this.index, 1);
@@ -66,6 +102,21 @@ const changeTaskProgress = function(e) {
     }
     this.taskList[this.index]['status'] = status;
     displayTaskList(this.taskList);
+};
+
+function changeTaskStatus(e) {
+    displayTaskList(this.taskList);
+}
+
+// onload Logic
+window.onload = function() {
+    let statusList = document.querySelectorAll('input[type=radio]');
+    statusList.forEach(function(status) {
+        status.addEventListener(
+            'click', { taskList, handleEvent: changeTaskStatus },
+            false
+        );
+    });
 };
 
 // main Logic
