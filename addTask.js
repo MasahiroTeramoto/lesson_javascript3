@@ -118,7 +118,7 @@ function changeTaskStatus(e) {
 
 // onload Logic
 window.onload = function() {
-    let statusList = document.querySelectorAll('input[type=radio]');
+    const statusList = document.querySelectorAll('input[type=radio]');
     statusList.forEach(function(status) {
         status.addEventListener(
             'click', {
