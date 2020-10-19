@@ -76,7 +76,7 @@ const filterSelectedStatusTaskList = function(taskList, selectedStatus) {
 
 const getSelectedStatus = function() {
     let selectedStatus;
-    let statusList = document.querySelectorAll('input[type=radio]');
+    const statusList = document.querySelectorAll('input[type=radio]');
 
     statusList.forEach(function(status) {
         if (status.checked) selectedStatus = status['value'];
