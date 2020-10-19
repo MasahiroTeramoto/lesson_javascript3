@@ -8,7 +8,7 @@ const displayTaskList = function(taskList) {
     }
 
     // filter taskList
-    filteredTaskList = getFilteredTaskList(taskList);
+    const filteredTaskList = filterTaskList(taskList);
 
     // Display task list
     filteredTaskList.forEach(function(task, index) {
@@ -34,11 +34,19 @@ const displayTaskList = function(taskList) {
         elem.appendChild(tableRow);
 
         deleteButton.addEventListener(
-            'click', { taskList, index, handleEvent: deleteTask },
+            'click', {
+                taskList,
+                index,
+                handleEvent: deleteTask,
+            },
             false
         );
         progressButton.addEventListener(
-            'click', { taskList, index, handleEvent: changeTaskProgress },
+            'click', {
+                taskList,
+                index,
+                handleEvent: changeTaskProgress,
+            },
             false
         );
     });
@@ -54,36 +62,36 @@ const addTaskList = function(taskList) {
     taskList.push(task);
 };
 
-const filterTaskList = function(taskList, status) {
-    let filteredTaskList = [];
+const filterSelectedStatusTaskList = function(taskList, selectedStatus) {
+    let selectedTaskList = [];
 
     taskList.forEach(function(task) {
-        if (task['status'] === status) {
-            filteredTaskList.push(task);
+        if (task['status'] === selectedStatus) {
+            selectedTaskList.push(task);
         }
     });
 
-    return filteredTaskList;
+    return selectedTaskList;
 };
 
-const getCheckedFilterStatus = function() {
-    let filterStatus;
+const getSelectedStatus = function() {
+    let selectedStatus;
     let statusList = document.querySelectorAll('input[type=radio]');
 
     statusList.forEach(function(status) {
-        if (status.checked) filterStatus = status.value;
+        if (status.checked) selectedStatus = status['value'];
     });
 
-    return filterStatus;
+    return selectedStatus;
 };
 
-const getFilteredTaskList = function(taskList) {
-    let status = getCheckedFilterStatus();
+const filterTaskList = function(taskList) {
+    const selectedStatus = getSelectedStatus();
 
-    if (status === 'すべて') {
+    if (selectedStatus === 'すべて') {
         return taskList;
     } else {
-        return filterTaskList(taskList, status);
+        return filterSelectedStatusTaskList(taskList, selectedStatus);
     }
 };
 
@@ -113,7 +121,10 @@ window.onload = function() {
     let statusList = document.querySelectorAll('input[type=radio]');
     statusList.forEach(function(status) {
         status.addEventListener(
-            'click', { taskList, handleEvent: changeTaskStatus },
+            'click', {
+                taskList,
+                handleEvent: changeTaskStatus,
+            },
             false
         );
     });
