@@ -30,8 +30,14 @@ const displayTaskList = function(taskList) {
 
         elem.appendChild(tableRow);
 
-        deleteButton.addEventListener('click', { taskList, index, handleEvent: deleteTask }, false)
-        progressButton.addEventListener('click', { taskList, index, handleEvent: changeProgress }, false)
+        deleteButton.addEventListener(
+            'click', { taskList, index, handleEvent: deleteTask },
+            false
+        );
+        progressButton.addEventListener(
+            'click', { taskList, index, handleEvent: changeProgress },
+            false
+        );
     });
 };
 
@@ -49,18 +55,18 @@ const addTaskList = function(taskList) {
 const deleteTask = function(e) {
     this.taskList.splice(this.index, 1);
     displayTaskList(this.taskList);
-}
+};
 
 const changeProgress = function(e) {
-    let status = this.taskList[this.index]['status']
+    let status = this.taskList[this.index]['status'];
     if (status === '作業中') {
-        status = '完了'
+        status = '完了';
     } else if (status === '完了') {
-        status = '作業中'
+        status = '作業中';
     }
-    this.taskList[this.index]['status'] = status
+    this.taskList[this.index]['status'] = status;
     displayTaskList(this.taskList);
-}
+};
 
 // main Logic
 const taskList = [];
