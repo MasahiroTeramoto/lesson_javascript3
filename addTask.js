@@ -35,7 +35,7 @@ const displayTaskList = function(taskList) {
             false
         );
         progressButton.addEventListener(
-            'click', { taskList, index, handleEvent: changeProgress },
+            'click', { taskList, index, handleEvent: changeProgressTask },
             false
         );
     });
@@ -57,7 +57,7 @@ const deleteTask = function(e) {
     displayTaskList(this.taskList);
 };
 
-const changeProgress = function(e) {
+const changeProgressTask = function(e) {
     let status = this.taskList[this.index]['status'];
     if (status === '作業中') {
         status = '完了';
