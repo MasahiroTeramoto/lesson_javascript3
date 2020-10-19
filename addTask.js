@@ -8,10 +8,10 @@ const displayTaskList = function(taskList) {
     }
 
     // filter taskList
-    const filteredTaskList = filterTaskList(taskList);
+    const selectedStatus = getSelectedStatus();
 
     // Display task list
-    filteredTaskList.forEach(function(task, index) {
+    taskList.forEach(function(task, index) {
         const tableRow = document.createElement('tr');
         const idData = document.createElement('td');
         const commentData = document.createElement('td');
@@ -41,6 +41,7 @@ const displayTaskList = function(taskList) {
             },
             false
         );
+
         progressButton.addEventListener(
             'click', {
                 taskList,
@@ -49,6 +50,11 @@ const displayTaskList = function(taskList) {
             },
             false
         );
+
+        if (task['status'] !== selectedStatus && selectedStatus !== "すべて") {
+            tableRow.style.display = 'none';
+        }
+
     });
 };
 
@@ -62,37 +68,15 @@ const addTaskList = function(taskList) {
     taskList.push(task);
 };
 
-const filterSelectedStatusTaskList = function(taskList, selectedStatus) {
-    let selectedTaskList = [];
-
-    taskList.forEach(function(task) {
-        if (task['status'] === selectedStatus) {
-            selectedTaskList.push(task);
-        }
-    });
-
-    return selectedTaskList;
-};
-
 const getSelectedStatus = function() {
     let selectedStatus;
     const statusList = document.querySelectorAll('input[type=radio]');
 
     statusList.forEach(function(status) {
-        if (status.checked) selectedStatus = status['value'];
+        if (status.checked) selectedStatus = status.value;
     });
 
     return selectedStatus;
-};
-
-const filterTaskList = function(taskList) {
-    const selectedStatus = getSelectedStatus();
-
-    if (selectedStatus === 'すべて') {
-        return taskList;
-    } else {
-        return filterSelectedStatusTaskList(taskList, selectedStatus);
-    }
 };
 
 // event logic
