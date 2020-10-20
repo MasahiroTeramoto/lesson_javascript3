@@ -7,7 +7,7 @@ const displayTaskList = function(taskList) {
         elem.removeChild(elem.lastChild);
     }
 
-    // filter taskList
+    // Get selected Status
     const selectedStatus = getSelectedStatus();
 
     // Display task list
