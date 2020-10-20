@@ -51,7 +51,7 @@ const displayTaskList = function(taskList) {
             false
         );
 
-        if (task['status'] !== selectedStatus && selectedStatus !== "すべて") {
+        if (selectedStatus !== "すべて" && task['status'] !== selectedStatus) {
             tableRow.style.display = 'none';
         }
 
