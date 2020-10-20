@@ -7,6 +7,9 @@ const displayTaskList = function(taskList) {
         elem.removeChild(elem.lastChild);
     }
 
+    // Get selected Status
+    const selectedStatus = getSelectedStatus();
+
     // Display task list
     taskList.forEach(function(task, index) {
         const tableRow = document.createElement('tr');
@@ -31,13 +34,27 @@ const displayTaskList = function(taskList) {
         elem.appendChild(tableRow);
 
         deleteButton.addEventListener(
-            'click', { taskList, index, handleEvent: deleteTask },
+            'click', {
+                taskList,
+                index,
+                handleEvent: deleteTask,
+            },
             false
         );
+
         progressButton.addEventListener(
-            'click', { taskList, index, handleEvent: changeTaskProgress },
+            'click', {
+                taskList,
+                index,
+                handleEvent: changeTaskProgress,
+            },
             false
         );
+
+        if (selectedStatus !== "すべて" && task['status'] !== selectedStatus) {
+            tableRow.style.display = 'none';
+        }
+
     });
 };
 
@@ -49,6 +66,17 @@ const addTaskList = function(taskList) {
     };
     comment.value = '';
     taskList.push(task);
+};
+
+const getSelectedStatus = function() {
+    let selectedStatus;
+    const statusList = document.querySelectorAll('input[type=radio]');
+
+    statusList.forEach(function(status) {
+        if (status.checked) selectedStatus = status.value;
+    });
+
+    return selectedStatus;
 };
 
 // event logic
@@ -66,6 +94,24 @@ const changeTaskProgress = function(e) {
     }
     this.taskList[this.index]['status'] = status;
     displayTaskList(this.taskList);
+};
+
+function changeTaskStatus(e) {
+    displayTaskList(this.taskList);
+}
+
+// onload Logic
+window.onload = function() {
+    const statusList = document.querySelectorAll('input[type=radio]');
+    statusList.forEach(function(status) {
+        status.addEventListener(
+            'click', {
+                taskList,
+                handleEvent: changeTaskStatus,
+            },
+            false
+        );
+    });
 };
 
 // main Logic
